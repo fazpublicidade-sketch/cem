@@ -13,6 +13,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Links de convite/recuperação de senha do painel chegam na página inicial: leva para o painel
+    if (/type=(invite|recovery)/.test(location.hash)) location.replace("admin/" + location.hash);
+  </script>
 </head>
 <body>
 
