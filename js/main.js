@@ -5,7 +5,7 @@ const ACADEMIA = {
   whatsapp: "5511914717422",            // DDI + DDD + número, só dígitos
   telefone: "(11) 91471-7422",
   endereco: "Rua Manuel Gaya, 806 — Vila Nova Mazzei, São Paulo/SP — CEP 02313-000",
-  horario: "Das 5h às 22h",
+  horario: "Seg a sex: 5h às 22h · Sáb, dom e feriados: 8h às 12h",
   instagram: "",                        // ex.: "@corpoemente" (vazio = esconde a linha)
 };
 
@@ -13,11 +13,16 @@ const linkWhats = (msg) =>
   `https://wa.me/${ACADEMIA.whatsapp}?text=${encodeURIComponent(msg)}`;
 
 // Botões de WhatsApp com mensagem pronta
-document.querySelectorAll('[data-whats]').forEach((el) => {
-  el.href = linkWhats(el.dataset.whats);
-  el.target = '_blank';
-  el.rel = 'noopener';
-});
+// (data-whats-numero troca o número, ex.: Mazzei Runners)
+window.CM_ativarLinks = (raiz) => {
+  raiz.querySelectorAll("[data-whats]").forEach((el) => {
+    const numero = el.dataset.whatsNumero || ACADEMIA.whatsapp;
+    el.href = `https://wa.me/${numero}?text=${encodeURIComponent(el.dataset.whats)}`;
+    el.target = "_blank";
+    el.rel = "noopener";
+  });
+};
+window.CM_ativarLinks(document);
 
 // Informações de contato
 document.querySelectorAll('[data-info]').forEach((el) => {
@@ -73,6 +78,18 @@ document.querySelectorAll('[data-aba]').forEach((el) =>
   el.addEventListener('click', () => mostrarAba(el.dataset.aba))
 );
 
+// Abas das grades de horários
+const mostrarGrade = (alvo) => {
+  document.querySelectorAll(".aba-grade").forEach((aba) => {
+    const ativa = aba.dataset.grade === alvo;
+    aba.classList.toggle("ativa", ativa);
+    aba.setAttribute("aria-selected", String(ativa));
+  });
+  document.querySelectorAll(".grade").forEach((g) => { g.hidden = g.id !== `grade-${alvo}`; });
+};
+document.querySelectorAll(".aba-grade").forEach((aba) => aba.addEventListener("click", () => mostrarGrade(aba.dataset.grade)));
+document.querySelectorAll("a[data-grade]").forEach((el) => el.addEventListener("click", () => mostrarGrade(el.dataset.grade)));
+
 // Formulário → WhatsApp
 document.getElementById('form-contato').addEventListener('submit', (e) => {
   e.preventDefault();
@@ -82,12 +99,6 @@ document.getElementById('form-contato').addEventListener('submit', (e) => {
 });
 
 // ===== Animações de rolagem =====
-// Itens lado a lado entram em sequência (um depois do outro)
-document.querySelectorAll(".mod-grid, .cards, .be-grid, .numeros, .aulas").forEach((grupo) => {
-  grupo.querySelectorAll(":scope > .reveal").forEach((el, i) => {
-    el.style.setProperty("--atraso", `${i * 150}ms`);
-  });
-});
 
 const obs = new IntersectionObserver((itens) => {
   itens.forEach((i) => {
@@ -97,7 +108,20 @@ const obs = new IntersectionObserver((itens) => {
     }
   });
 }, { threshold: 0.15, rootMargin: "0px 0px -60px 0px" });
-document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+// Itens lado a lado entram em sequência (um depois do outro).
+// Também é chamado de novo quando o conteúdo do painel chega (js/conteudo.js).
+window.CM_animar = (raiz) => {
+  raiz.querySelectorAll(".mod-grid, .cards, .be-grid, .numeros, .aulas, .func-grid, .grade, .pubs").forEach((grupo) => {
+    grupo.querySelectorAll(":scope > .reveal").forEach((el, i) => {
+      el.style.setProperty("--atraso", `${Math.min(i, 6) * 120}ms`);
+    });
+  });
+  raiz.querySelectorAll(".reveal:not([data-observado])").forEach((el) => {
+    el.dataset.observado = "";
+    obs.observe(el);
+  });
+};
+window.CM_animar(document);
 
 // Vídeo do topo: movimento mais lento que a página (efeito de profundidade)
 const heroVideo = document.getElementById("hero-video");

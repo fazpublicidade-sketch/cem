@@ -268,7 +268,7 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
 }
 
 /* Tablet: menu vira hambúrguer antes de quebrar em duas linhas */
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .hamburguer { display: block; z-index: 2; }
   .menu { position: fixed; inset: 0; background: rgba(11,12,11,.98); flex-direction: column; justify-content: center; gap: 28px; opacity: 0; pointer-events: none; transition: .3s; }
   .menu a:not(.btn) { font-size: 1.2rem; color: var(--branco); }
@@ -282,3 +282,77 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
 /* campos do formulário nunca passam da largura da tela */
 .contato__grid > * { min-width: 0; }
 .form input, .form select { width: 100%; min-width: 0; max-width: 100%; text-overflow: ellipsis; }
+
+/* ===== Horários ===== */
+.func-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 48px; }
+.func { background: var(--grafite); border: 1px solid var(--linha); border-radius: var(--raio); padding: 28px; }
+.func h3 { font-size: .78rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--verde); margin-bottom: 14px; }
+.func ul { display: flex; flex-direction: column; gap: 12px; }
+.func li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap; padding-bottom: 12px; border-bottom: 1px solid var(--linha); }
+.func li:last-child { border-bottom: 0; padding-bottom: 0; }
+.func li span { color: var(--cinza); }
+.func li strong { font-size: 1.25rem; font-weight: 800; }
+.abas--grade { flex-wrap: wrap; margin-bottom: 28px; }
+.aba-grade { background: none; border: 0; color: var(--cinza); font: 700 .8rem 'Montserrat', sans-serif; letter-spacing: .06em; text-transform: uppercase; padding: 12px 22px; border-radius: 999px; cursor: pointer; transition: .2s; }
+.aba-grade.ativa { background: var(--verde-vivo); color: var(--preto); }
+.grade { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.grade[hidden] { display: none; }
+.dia { background: var(--grafite); border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; }
+.dia header { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; background: var(--grafite-2); border-bottom: 1px solid var(--linha); }
+.dia h4 { font-size: 1rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; }
+.dia--hoje { border-color: var(--verde-vivo); }
+.dia__hoje { background: var(--verde-vivo); color: var(--preto); font-size: .68rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: 4px 10px; border-radius: 999px; }
+.dia ul { padding: 8px 12px 12px; }
+.dia li { display: flex; align-items: center; gap: 14px; padding: 8px; border-radius: 10px; }
+.dia li + li { margin-top: 2px; }
+.dia time { min-width: 64px; text-align: center; font-weight: 800; font-size: .9rem; color: var(--verde-vivo); background: rgba(139,232,46,.1); border-radius: 999px; padding: 5px 8px; }
+.dia li span { font-weight: 600; display: flex; flex-direction: column; line-height: 1.25; }
+.dia li small { font-weight: 500; font-size: .76rem; color: var(--cinza); }
+.dia li.aula-destaque { background: rgba(139,232,46,.08); }
+.dia li.aula-destaque time { background: var(--verde-vivo); color: var(--preto); }
+.horarios__nota { margin-top: 28px; color: var(--cinza); font-size: .9rem; }
+.horarios__nota strong { color: var(--branco); }
+.vazio { color: var(--cinza); }
+
+/* ===== Eventos e promoções ===== */
+.eventos { background: var(--grafite); }
+.pubs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.pub { background: var(--preto); border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; display: flex; flex-direction: column; }
+.pub--destaque { border: 2px solid var(--verde-vivo); }
+.pub__img { aspect-ratio: 4/5; background: var(--grafite-2); }
+.pub__img img { width: 100%; height: 100%; object-fit: cover; }
+.pub__corpo { padding: 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.pub__corpo .btn { margin-top: auto; align-self: flex-start; }
+.pub__tipo { align-self: flex-start; font-size: .7rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; padding: 5px 12px; border-radius: 999px; }
+.pub__tipo--evento { background: rgba(139,232,46,.14); color: var(--verde-vivo); }
+.pub__tipo--promocao { background: var(--verde-vivo); color: var(--preto); }
+.pub h3 { font-size: 1.35rem; }
+.pub__quando { font-weight: 700; color: var(--verde-vivo); font-size: .9rem; text-transform: capitalize; }
+.pub__desc { color: var(--cinza); white-space: pre-line; }
+.pub__validade { font-size: .8rem; color: var(--cinza); }
+.pub-vazio { grid-column: 1 / -1; background: var(--preto); border: 1px dashed var(--linha); border-radius: var(--raio); padding: 40px; text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; color: var(--cinza); }
+
+/* ===== Mazzei Runners ===== */
+.runners { padding: clamp(72px, 10vw, 120px) 0; background: radial-gradient(ellipse at 20% 50%, #1a2b0d 0%, var(--preto) 60%); border-block: 1px solid var(--linha); overflow-x: clip; }
+.runners__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: center; }
+.runners__logo { background: #000; border: 1px solid var(--linha); border-radius: 28px; padding: 32px; max-width: 380px; justify-self: center; width: 100%; }
+.runners__logo img { width: 100%; height: auto; }
+.runners__texto h2 { margin-bottom: 18px; }
+.runners__lead { color: #d3d5cf; font-size: 1.05rem; max-width: 560px; }
+.runners__lista { margin: 24px 0 32px; display: flex; flex-direction: column; gap: 10px; }
+.runners__lista li { padding-left: 26px; position: relative; color: #cfd2cb; }
+.runners__lista li::before { content: ''; position: absolute; left: 0; top: 8px; width: 14px; height: 8px; border-left: 2px solid var(--verde-vivo); border-bottom: 2px solid var(--verde-vivo); transform: rotate(-45deg); }
+.runners__ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+
+@media (max-width: 980px) {
+  .grade, .pubs { grid-template-columns: repeat(2, 1fr); }
+  .runners__grid { grid-template-columns: 1fr; gap: 40px; }
+  .runners__logo { max-width: 260px; }
+}
+@media (max-width: 640px) {
+  .func-grid, .grade, .pubs { grid-template-columns: 1fr; }
+  .aba-grade { padding: 10px 14px; font-size: .72rem; }
+  .abas--grade { border-radius: 18px; }
+  .runners__ctas .btn { width: 100%; }
+}
+.menu a { white-space: nowrap; }
