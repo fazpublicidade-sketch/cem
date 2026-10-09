@@ -1,307 +1,327 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Corpo & Mente Fitness Center. Premium fitness and wellness center. Equipamentos Technogym e ambiente climatizado." />
-    <title>Corpo & Mente Fitness Center | Premium</title>
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="app">
-      
-      <!-- Nav -->
-      <nav class="navbar">
-        <div class="logo">
-          C&M <span class="accent">.</span>
-        </div>
-        <div class="nav-links">
-          <a href="#modalidades">Modalidades</a>
-          <a href="#diferenciais">Diferenciais</a>
-          <a href="#comunidade">Comunidade</a>
-          <a href="#contato">Contato</a>
-        </div>
-        <a href="#contato" class="btn btn-outline">Seja Membro</a>
-      </nav>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Corpo &amp; Mente Wellness Club — Musculação, Hyrox, Lutas e Pilates</title>
+  <meta name="description" content="Corpo & Mente Wellness Club: musculação, Hyrox, Clube da Luta (Jiu-Jitsu e Muay Thai), Pilates, atendimento nutricional e massagem em um só lugar.">
+  <meta property="og:title" content="Corpo & Mente Wellness Club">
+  <meta property="og:description" content="Mais saúde para o seu dia a dia. Musculação, Hyrox, Lutas, Pilates, Nutrição e Massagem.">
+  <meta property="og:image" content="assets/img/hyrox.webp">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
 
-      <!-- Section 01: Hero -->
-      <section class="hero-section" id="home">
-        <div class="hero-content">
-          <div class="hero-text-wrapper">
-            <h2 class="hero-subtitle">Corpo & Mente Fitness Center</h2>
-            <h1 class="hero-title">Transformando vidas através do <span class="accent italic">movimento.</span></h1>
-            <p class="hero-desc">Descubra uma experiência premium de bem-estar. Equipamentos de última geração, profissionais de elite e um ambiente projetado para sua evolução.</p>
-            <div class="hero-actions">
-              <a href="#modalidades" class="btn btn-primary">Conhecer Planos <i class="ph ph-arrow-right"></i></a>
-              <a href="#contato" class="btn btn-secondary">Agendar Visita</a>
-            </div>
-          </div>
-        </div>
-        <div class="hero-video-container">
-          <div class="video-overlay"></div>
-          <video autoplay loop muted playsinline class="bg-video" preload="auto">
-            <source src="/bloco01.mp4" type="video/mp4">
-          </video>
-        </div>
-      </section>
+<!-- ===== MENU ===== -->
+<header class="topo" id="topo">
+  <div class="container topo__inner">
+    <a href="#inicio" class="logo" aria-label="Corpo & Mente Wellness Club">
+      <span class="logo__nome">CORPO <em>&amp;</em> MENTE</span>
+      <span class="logo__sub">WELLNESS CLUB</span>
+    </a>
+    <nav class="menu" id="menu" aria-label="Menu principal">
+      <a href="#sobre">Sobre nós</a>
+      <a href="#modalidades">Modalidades</a>
+      <a href="#planos">Planos</a>
+      <a href="#bem-estar">Bem-estar</a>
+      <a href="#contato">Contato</a>
+      <a href="#" class="btn btn--verde menu__cta" data-whats="Olá! Quero agendar uma aula experimental na Corpo & Mente.">Aula experimental</a>
+    </nav>
+    <button class="hamburguer" id="hamburguer" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
 
-      <!-- Section 02: Horários & Modalidades -->
-      <section class="modalidades-section" id="modalidades">
-        <div class="modalidades-bg-video">
-          <div class="video-overlay"></div>
-          <video autoplay loop muted playsinline class="lazy-video" preload="none">
-            <source data-src="/bloco02.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="modalidades-grid">
-          <div class="modalidades-content">
-            <h2 class="section-title">Nossas <br><span class="accent">Modalidades</span></h2>
-            <p class="section-desc">Uma grade completa projetada para cada objetivo.</p>
-            
-            <div class="cards-grid">
-              <div class="mod-card" data-mod="musculacao">
-                <i class="ph ph-barbell"></i>
-                <h3>Musculação</h3>
-              </div>
-              <div class="mod-card" data-mod="personal">
-                <i class="ph ph-user-circle"></i>
-                <h3>Personal Trainer</h3>
-              </div>
-              <div class="mod-card" data-mod="hyrox">
-                <i class="ph ph-heartbeat"></i>
-                <h3>HYROX</h3>
-              </div>
-              <div class="mod-card" data-mod="running">
-                <i class="ph ph-sneaker"></i>
-                <h3>Mazzei Runners</h3>
-              </div>
-              <div class="mod-card" data-mod="pilates">
-                <i class="ph ph-yin-yang"></i>
-                <h3>Pilates</h3>
-              </div>
-              <div class="mod-card" data-mod="jiujitsu">
-                <i class="ph ph-hand-fist"></i>
-                <h3>Jiu-Jitsu</h3>
-              </div>
-              <div class="mod-card" data-mod="spinning">
-                <i class="ph ph-bicycle"></i>
-                <h3>Spinning</h3>
-              </div>
-              <div class="mod-card" data-mod="massagem">
-                <i class="ph ph-hands-clapping"></i>
-                <h3>Massagem</h3>
-              </div>
-            </div>
-          </div>
-          <div class="modalidades-schedule glass">
-            <h3 class="schedule-title">Grade de Horários</h3>
-            <div class="schedule-list">
-              <div class="schedule-item">
-                <span class="schedule-time">06:00</span>
-                <span class="schedule-name">Spinning</span>
-              </div>
-              <div class="schedule-item">
-                <span class="schedule-time">07:00</span>
-                <span class="schedule-name">HYROX</span>
-              </div>
-              <div class="schedule-item">
-                <span class="schedule-time">08:00</span>
-                <span class="schedule-name">Pilates</span>
-              </div>
-              <div class="schedule-item">
-                <span class="schedule-time">18:00</span>
-                <span class="schedule-name">Musculação</span>
-              </div>
-              <div class="schedule-item">
-                <span class="schedule-time">19:00</span>
-                <span class="schedule-name">Jiu-Jitsu</span>
-              </div>
-              <div class="schedule-item">
-                <span class="schedule-time">20:00</span>
-                <span class="schedule-name">Mazzei Runners</span>
-              </div>
-            </div>
-            <a href="https://wa.me/5511914717422?text=Olá!%20Gostaria%20de%20falar%20com%20um%20consultor." target="_blank" class="btn btn-outline" style="width:100%; margin-top:24px;">Falar com Consultor</a>
-          </div>
-        </div>
-      </section>
+<main>
 
-      <!-- Section 03: Diferenciais -->
-      <section class="diferenciais-section" id="diferenciais">
-        <div class="dif-container">
-          <div class="dif-header">
-            <h2 class="section-title">Por que a <span class="accent">C&M?</span></h2>
-          </div>
-          <div class="dif-layout">
-            <div class="dif-cards">
-              <div class="dif-card glass">
-                <div class="dif-card-number">01</div>
-                <h3>Atendimento Nutricional</h3>
-                <p>Nutricionistas esportivos para alinhar sua dieta aos seus objetivos com precisão.</p>
-              </div>
-              <div class="dif-card glass">
-                <div class="dif-card-number">02</div>
-                <h3>Massagem</h3>
-                <p>Recuperação muscular avançada para manter seu corpo sempre preparado.</p>
-              </div>
-              <div class="dif-card glass">
-                <div class="dif-card-number">03</div>
-                <h3>Personal Trainer</h3>
-                <p>Acompanhamento individualizado com os melhores profissionais do mercado.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<!-- ===== INÍCIO ===== -->
+<section class="hero" id="inicio">
+  <video class="hero__bg" id="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/img/hyrox.webp" aria-hidden="true">
+    <source src="assets/video/hero.mp4" type="video/mp4">
+  </video>
+  <div class="hero__shade"></div>
+  <div class="container hero__content">
+    <p class="kicker">Wellness Club</p>
+    <h1>Mais saúde para<br>o seu <span class="verde">dia a dia</span>.</h1>
+    <p class="hero__lead">Musculação, Hyrox, Clube da Luta, Pilates, nutrição e massagem. Tudo o que o seu corpo e a sua mente precisam, em um só lugar.</p>
+    <div class="hero__ctas">
+      <a href="#planos" class="btn btn--verde">Ver planos</a>
+      <a href="#" class="btn btn--linha" data-whats="Olá! Quero agendar uma aula experimental na Corpo & Mente.">Agendar aula experimental</a>
+    </div>
+    <ul class="hero__pilares">
+      <li>Força</li><li>Disposição</li><li>Equilíbrio</li><li>Resultados</li>
+    </ul>
+  </div>
+  <a href="#sobre" class="hero__scroll" aria-label="Rolar para baixo"><span></span></a>
+</section>
 
-      <!-- Section 04: Comunidade -->
-      <section class="comunidade-section" id="comunidade">
-        <div class="comunidade-bg-video">
-          <div class="comunidade-overlay"></div>
-          <video autoplay loop muted playsinline class="lazy-video" preload="none">
-            <source data-src="/bloco04.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="comunidade-content">
-          <h2 class="huge-title">Muito mais que<br>uma academia.</h2>
-          <p class="comunidade-desc">Junte-se a uma comunidade focada em superar limites, cuidar do corpo e nutrir a mente. Sua transformação começa onde a sua zona de conforto termina.</p>
-          <a href="#contato" class="btn btn-primary btn-large">Faça parte da Elite <i class="ph ph-arrow-right"></i></a>
-        </div>
-      </section>
+<!-- ===== SOBRE ===== -->
+<section class="secao sobre" id="sobre">
+  <div class="container sobre__grid">
+    <div class="sobre__texto reveal" data-anim="left">
+      <p class="kicker">Sobre nós</p>
+      <h2>Treino, cuidado e bem-estar <span class="verde">no mesmo endereço</span>.</h2>
+      <p>A Corpo &amp; Mente Wellness Club nasceu para unir o que normalmente fica espalhado: a força da musculação, a intensidade do Hyrox e das lutas, o equilíbrio do Pilates e o cuidado de uma nutricionista e de uma massagem depois do treino.</p>
+      <p>Aqui você monta a rotina que faz sentido para você, com professores qualificados, turmas reduzidas e um ambiente pensado para quem quer resultado sem abrir mão da qualidade de vida.</p>
+    </div>
+    <ul class="numeros">
+      <li class="reveal" data-anim="zoom"><strong>6</strong><span>modalidades e serviços</span></li>
+      <li class="reveal" data-anim="zoom"><strong>7</strong><span>dias por semana de musculação</span></li>
+      <li class="reveal" data-anim="zoom"><strong>1</strong><span>só lugar para corpo e mente</span></li>
+      <li class="reveal" data-anim="zoom"><strong>0</strong><span>taxa de adesão nos planos Prata e Ouro</span></li>
+    </ul>
+  </div>
+</section>
 
-      <!-- Section 05: Planos -->
-      <section class="planos-section" id="planos">
-        <div class="planos-header">
-          <h2 class="section-title">Escolha seu <span class="accent">Plano</span></h2>
-          <p class="section-desc">Invista no seu corpo. Transforme sua mente.</p>
-        </div>
-        <div class="planos-grid">
-          <div class="plano-card glass">
-            <h3>Básico</h3>
-            <div class="plano-price">R$ 149<span class="plano-period">/mês</span></div>
-            <ul class="plano-features">
-              <li><i class="ph ph-check accent"></i> Acesso à Musculação</li>
-              <li><i class="ph ph-check accent"></i> Horário livre</li>
-              <li><i class="ph ph-check accent"></i> Armários rotativos</li>
-            </ul>
-            <a href="https://wa.me/5511914717422?text=Olá!%20Tenho%20interesse%20no%20Plano%20Básico." target="_blank" class="btn btn-outline" style="width: 100%;">Assinar Agora</a>
-          </div>
-          <div class="plano-card glass featured">
-            <div class="plano-badge">Mais Escolhido</div>
-            <h3>Premium</h3>
-            <div class="plano-price">R$ 249<span class="plano-period">/mês</span></div>
-            <ul class="plano-features">
-              <li><i class="ph ph-check accent"></i> Tudo do Básico</li>
-              <li><i class="ph ph-check accent"></i> Modalidades Inclusas</li>
-              <li><i class="ph ph-check accent"></i> Avaliação Bioimpedância Mensal</li>
-            </ul>
-            <a href="https://wa.me/5511914717422?text=Olá!%20Tenho%20interesse%20no%20Plano%20Premium." target="_blank" class="btn btn-primary" style="width: 100%;">Assinar Premium</a>
-          </div>
-          <div class="plano-card glass">
-            <h3>Black</h3>
-            <div class="plano-price">R$ 349<span class="plano-period">/mês</span></div>
-            <ul class="plano-features">
-              <li><i class="ph ph-check accent"></i> Tudo do Premium</li>
-              <li><i class="ph ph-check accent"></i> Acesso ao Recovery Center</li>
-              <li><i class="ph ph-check accent"></i> 2x Sessões de Massagem/mês</li>
-            </ul>
-            <a href="https://wa.me/5511914717422?text=Olá!%20Tenho%20interesse%20no%20Plano%20Black." target="_blank" class="btn btn-outline" style="width: 100%;">Assinar Black</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Section 06: Contato -->
-      <section class="contato-section" id="contato">
-        <div class="contato-container">
-          <div class="contato-info">
-            <h2 class="section-title">Pronto para<br>começar?</h2>
-            
-            <div class="info-blocks">
-              <div class="info-block">
-                <i class="ph ph-map-pin accent"></i>
-                <div>
-                  <h4>Endereço Premium</h4>
-                  <p>Rua Manuel Gaya, 806<br>Vila Nova Mazzei, São Paulo - SP, 02313-000</p>
-                </div>
-              </div>
-              <div class="info-block">
-                <i class="ph ph-whatsapp-logo accent"></i>
-                <div>
-                  <h4>Atendimento WhatsApp</h4>
-                  <p>(11) 91471-7422</p>
-                </div>
-              </div>
-              <div class="info-block">
-                <i class="ph ph-clock accent"></i>
-                <div>
-                  <h4>Horário de Funcionamento</h4>
-                  <p>Seg - Sex: 05:00 às 22:00<br>Sáb: 08:00 às 12:00</p>
-                </div>
-              </div>
-              <div class="info-block">
-                <i class="ph ph-instagram-logo accent"></i>
-                <div>
-                  <h4>Instagram</h4>
-                  <p>@corpoementemazzei</p>
-                </div>
-              </div>
-            </div>
-            
-            <div class="cta-wrapper" style="margin-top: 60px;">
-              <a href="https://wa.me/5511914717422?text=Olá!%20Gostaria%20de%20falar%20com%20um%20consultor." target="_blank" class="btn btn-primary">Falar com Consultor</a>
-            </div>
-          </div>
-          
-          <div class="contato-map glass">
-            <iframe 
-              src="https://maps.google.com/maps?q=Rua%20Manuel%20Gaya,%20806%20-%20Vila%20Nova%20Mazzei,%20S%C3%A3o%20Paulo&t=m&z=15&output=embed&iwloc=near" 
-              width="100%" 
-              height="100%" 
-              style="border:0;" 
-              allowfullscreen="" 
-              loading="lazy" 
-              referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="footer-content">
-          <div class="footer-logo">C&M <span class="accent">.</span></div>
-          <div class="footer-links">
-            <a href="#">Privacidade</a>
-            <a href="#">Termos de Uso</a>
-            <a href="#">Carreiras</a>
-          </div>
-          <div class="footer-copy">
-            &copy; 2026 Corpo & Mente Fitness Center. Todos os direitos reservados.
-          </div>
-        </div>
-      </footer>
-
+<!-- ===== MODALIDADES ===== -->
+<section class="secao modalidades" id="modalidades">
+  <div class="container">
+    <div class="titulo-secao reveal" data-anim="up">
+      <p class="kicker">Modalidades</p>
+      <h2>Escolha como você quer <span class="verde">treinar</span>.</h2>
     </div>
 
-    <!-- Modal for Modalidades -->
-    <div class="modal-overlay" id="mod-modal">
-      <div class="modal-content glass">
-        <button class="modal-close" id="modal-close-btn"><i class="ph ph-x"></i></button>
-        <h3 id="modal-title" class="modal-title">Título</h3>
-        <p id="modal-desc" class="modal-desc">Descrição</p>
-        <div class="modal-schedule-wrapper">
-          <h4 class="modal-schedule-title"><i class="ph ph-clock accent"></i> Grade de Horários</h4>
-          <ul id="modal-schedule" class="modal-schedule-list"></ul>
+    <div class="mod-grid">
+      <article class="mod reveal" data-anim="up" id="musculacao">
+        <div class="mod__img" style="background-image:url('assets/img/flyer-musculacao.jpg');background-size:283%;background-position:100% 3.5%"></div>
+        <div class="mod__corpo">
+          <h3>Musculação</h3>
+          <p>Sala completa, área de cardio livre e aulas coletivas de Zumba, Fit Dance, Jump, Power Glúteo, GAP e Pilates Solo inclusas no plano.</p>
+          <a href="#planos" class="link" data-aba="musculacao">Ver planos →</a>
         </div>
-        <a href="https://wa.me/5511914717422?text=Olá!%20Gostaria%20de%20agendar%20uma%20aula%20experimental." target="_blank" class="btn btn-primary" style="width: 100%; margin-top: 24px;">Agendar Aula Experimental</a>
+      </article>
+
+      <article class="mod reveal" data-anim="up" id="hyrox">
+        <div class="mod__img" style="background-image:url('assets/img/hyrox.webp');background-position:45% 50%"></div>
+        <div class="mod__corpo">
+          <h3>Hyrox</h3>
+          <p>O esporte de fitness que mais cresce no mundo: corrida + estações funcionais como sled, wall ball, burpee e farmer carry. Treine para competir ou para ganhar condicionamento.</p>
+          <a href="#" class="link" data-whats="Olá! Quero saber mais sobre os treinos de Hyrox.">Quero treinar Hyrox →</a>
+        </div>
+      </article>
+
+      <article class="mod reveal" data-anim="up" id="luta">
+        <div class="mod__img mod__img--icone">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M20 30V18a5 5 0 0 1 10 0v-2a5 5 0 0 1 10 0v2a5 5 0 0 1 10 0v16c0 10-7 18-17 18h-1c-8 0-14-6-14-14v-4a4 4 0 0 1 4-4h6"/><path d="M30 18v12M40 18v12"/><path d="M22 52v6h22v-6"/></svg>
+          <span>Jiu-Jitsu · Muay Thai</span>
+        </div>
+        <div class="mod__corpo">
+          <h3>Clube da Luta</h3>
+          <p><strong>Jiu-Jitsu</strong> e <strong>Muay Thai</strong> com professores graduados. Técnica, defesa pessoal, condicionamento e disciplina, para iniciantes e avançados.</p>
+          <a href="#" class="link" data-whats="Olá! Quero conhecer o Clube da Luta (Jiu-Jitsu / Muay Thai).">Agendar aula de luta →</a>
+        </div>
+      </article>
+
+      <article class="mod reveal" data-anim="up" id="pilates">
+        <div class="mod__img" style="background-image:url('assets/img/flyer-pilates.webp');background-size:221%;background-position:100% 2.4%"></div>
+        <div class="mod__corpo">
+          <h3>Pilates</h3>
+          <p>Força, equilíbrio e mobilidade em aparelhos, com grupos reduzidos e acompanhamento de profissionais qualificados.</p>
+          <a href="#planos" class="link" data-aba="pilates">Ver planos →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PLANOS ===== -->
+<section class="secao planos" id="planos">
+  <div class="container">
+    <div class="titulo-secao reveal" data-anim="up">
+      <p class="kicker">Planos</p>
+      <h2>O plano certo para a <span class="verde">sua rotina</span>.</h2>
+    </div>
+
+    <div class="abas" role="tablist">
+      <button class="aba ativa" role="tab" aria-selected="true" data-alvo="musculacao">Musculação</button>
+      <button class="aba" role="tab" aria-selected="false" data-alvo="pilates">Pilates</button>
+    </div>
+
+    <!-- Musculação -->
+    <div class="painel ativo" id="painel-musculacao" role="tabpanel">
+      <div class="cards">
+        <article class="plano reveal" data-anim="up">
+          <p class="plano__rotulo">Plano</p>
+          <h3>Bronze</h3>
+          <ul class="plano__itens">
+            <li>Sala de musculação <strong>5 dias</strong> por semana</li>
+            <li>Zumba, Fit Dance, Jump, Power Glúteo, GAP e Pilates Solo</li>
+            <li>Acesso livre à área de cardio</li>
+          </ul>
+          <div class="preco"><span class="preco__rs">R$</span><span class="preco__int">159</span><span class="preco__dec">,90<small>/mês</small></span></div>
+          <p class="selo selo--cinza">Sem fidelidade</p>
+          <p class="plano__obs">Taxa de adesão para novas matrículas: <strong>R$ 29,90</strong></p>
+          <p class="plano__pag">Pix · Cartão de débito · Cartão de crédito</p>
+          <a href="#" class="btn btn--linha btn--bloco" data-whats="Olá! Tenho interesse no Plano Bronze (Musculação).">Quero o Bronze</a>
+        </article>
+
+        <article class="plano reveal" data-anim="up">
+          <p class="plano__rotulo">Plano</p>
+          <h3>Prata</h3>
+          <ul class="plano__itens">
+            <li>Sala de musculação <strong>7 dias</strong> por semana</li>
+            <li>Zumba, Fit Dance, Jump, Power Glúteo, GAP e Pilates Solo</li>
+            <li>Acesso livre à área de cardio</li>
+          </ul>
+          <div class="preco"><span class="preco__rs">R$</span><span class="preco__int">139</span><span class="preco__dec">,90<small>/mês</small></span></div>
+          <p class="selo selo--verde">Fidelidade de 12 meses · recorrente</p>
+          <p class="plano__obs"><strong>Sem taxa de adesão</strong></p>
+          <p class="plano__pag">Cartão de crédito · Débito em conta</p>
+          <a href="#" class="btn btn--linha btn--bloco" data-whats="Olá! Tenho interesse no Plano Prata (Musculação).">Quero o Prata</a>
+        </article>
+
+        <article class="plano plano--destaque reveal" data-anim="up">
+          <p class="plano__badge">Mais escolhido</p>
+          <p class="plano__rotulo">Plano</p>
+          <h3>Ouro</h3>
+          <ul class="plano__itens">
+            <li>Sala de musculação <strong>7 dias</strong> por semana</li>
+            <li>Zumba, Fit Dance, Jump, Power Glúteo, GAP e Pilates Solo</li>
+            <li>Acesso livre à área de cardio</li>
+          </ul>
+          <div class="preco"><span class="preco__pre">12x de</span><span class="preco__rs">R$</span><span class="preco__int">109</span><span class="preco__dec">,90</span></div>
+          <p class="selo selo--verde">Plano anual · sem recorrência</p>
+          <p class="plano__obs">Valor total: <strong>R$ 1.318,80</strong> · <strong>sem taxa de adesão</strong></p>
+          <p class="plano__pag">Pix · Cartão de débito · Cartão de crédito</p>
+          <a href="#" class="btn btn--verde btn--bloco" data-whats="Olá! Tenho interesse no Plano Ouro (Musculação).">Quero o Ouro</a>
+        </article>
       </div>
     </div>
 
-    <script type="module" src="/src/main.js"></script>
-  </body>
+    <!-- Pilates -->
+    <div class="painel" id="painel-pilates" role="tabpanel" hidden>
+      <div class="cards cards--2">
+        <article class="plano reveal" data-anim="up">
+          <p class="plano__rotulo">Plano</p>
+          <h3>Platina</h3>
+          <p class="freq">1x por semana</p>
+          <ul class="opcoes">
+            <li><div><b>Plano anual</b><small>12x no cartão de crédito · total R$ 2.158,80</small></div><span>R$ 179,90<small>/mês</small></span></li>
+            <li><div><b>Fidelidade de 12 meses</b><small>Recorrência no crédito ou débito em conta</small></div><span>R$ 199,90<small>/mês</small></span></li>
+            <li><div><b>Sem fidelidade</b><small>+ taxa de adesão R$ 29,90</small></div><span>R$ 239,90<small>/mês</small></span></li>
+          </ul>
+          <ul class="plano__itens">
+            <li>Pilates 1x por semana</li>
+            <li>Grupos reduzidos</li>
+            <li>Acompanhamento de profissionais qualificados</li>
+          </ul>
+          <a href="#" class="btn btn--linha btn--bloco" data-whats="Olá! Tenho interesse no Plano Platina (Pilates 1x por semana).">Quero o Platina</a>
+        </article>
+
+        <article class="plano plano--destaque reveal" data-anim="up">
+          <p class="plano__badge">Mais completo</p>
+          <p class="plano__rotulo">Plano</p>
+          <h3>Diamante</h3>
+          <p class="freq">2x por semana</p>
+          <ul class="opcoes">
+            <li><div><b>Plano anual</b><small>12x no cartão de crédito · total R$ 2.758,80</small></div><span>R$ 229,90<small>/mês</small></span></li>
+            <li><div><b>Fidelidade de 12 meses</b><small>Recorrência no crédito ou débito em conta</small></div><span>R$ 249,90<small>/mês</small></span></li>
+            <li><div><b>Sem fidelidade</b><small>+ taxa de adesão R$ 29,90</small></div><span>R$ 279,90<small>/mês</small></span></li>
+          </ul>
+          <ul class="plano__itens">
+            <li>Pilates 2x por semana</li>
+            <li class="reveal" data-anim="zoom"><strong>Musculação 3x por semana (cortesia)</strong></li>
+            <li>Grupos reduzidos</li>
+            <li>Acompanhamento de profissionais qualificados</li>
+          </ul>
+          <a href="#" class="btn btn--verde btn--bloco" data-whats="Olá! Tenho interesse no Plano Diamante (Pilates 2x por semana).">Quero o Diamante</a>
+        </article>
+      </div>
+    </div>
+
+    <p class="planos__nota reveal" data-anim="up">Hyrox e Clube da Luta: consulte valores e horários pelo WhatsApp.</p>
+  </div>
+</section>
+
+<!-- ===== BEM-ESTAR ===== -->
+<section class="secao bem-estar" id="bem-estar">
+  <div class="container">
+    <div class="titulo-secao reveal" data-anim="up">
+      <p class="kicker">Bem-estar</p>
+      <h2>Cuidado que vai <span class="verde">além do treino</span>.</h2>
+    </div>
+    <div class="be-grid">
+      <article class="be reveal" data-anim="left" id="nutricao">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 14c-4-5-14-4-14 7 0 12 8 21 14 21s14-9 14-21c0-11-10-12-14-7z"/><path d="M24 14c0-4 2-8 6-9"/><path d="M24 14c-2-3-5-4-8-3"/></svg>
+        <h3>Atendimento nutricional</h3>
+        <p>Avaliação, plano alimentar individual e acompanhamento para potencializar seus resultados, seja para emagrecer, ganhar massa ou ter mais disposição.</p>
+        <a href="#" class="link" data-whats="Olá! Quero agendar um atendimento nutricional.">Agendar consulta →</a>
+      </article>
+      <article class="be reveal" data-anim="right" id="massagem">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="34" cy="12" r="4"/><path d="M6 32h36"/><path d="M8 32c2-6 8-9 14-9h8c3 0 6 2 7 5"/><path d="M10 38h28"/><path d="M14 18c2-2 5-3 8-2"/></svg>
+        <h3>Massagem</h3>
+        <p>Massagem relaxante e terapêutica para soltar a musculatura, acelerar a recuperação e desacelerar a mente depois de um dia puxado.</p>
+        <a href="#" class="link" data-whats="Olá! Quero agendar uma massagem.">Agendar massagem →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CHAMADA ===== -->
+<section class="chamada">
+  <div class="container chamada__inner reveal" data-anim="zoom">
+    <h2>Seu primeiro treino é <span class="verde">por nossa conta</span>.</h2>
+    <p>Agende uma aula experimental e conheça a Corpo &amp; Mente por dentro.</p>
+    <a href="#" class="btn btn--verde" data-whats="Olá! Quero agendar uma aula experimental na Corpo & Mente.">Agendar pelo WhatsApp</a>
+  </div>
+</section>
+
+<!-- ===== CONTATO ===== -->
+<section class="secao contato" id="contato">
+  <div class="container contato__grid">
+    <div class="reveal" data-anim="left">
+      <p class="kicker">Contato</p>
+      <h2>Venha nos <span class="verde">visitar</span>.</h2>
+      <ul class="contato__lista">
+        <li><b>Endereço</b><span data-info="endereco"></span></li>
+        <li><b>WhatsApp</b><span data-info="telefone"></span></li>
+        <li><b>Horário</b><span data-info="horario"></span></li>
+        <li><b>Instagram</b><a data-info="instagram" target="_blank" rel="noopener"></a></li>
+      </ul>
+    </div>
+    <form class="form reveal" data-anim="right" id="form-contato">
+      <label>Nome<input type="text" name="nome" required autocomplete="name"></label>
+      <label>Telefone<input type="tel" name="telefone" required autocomplete="tel"></label>
+      <label>Tenho interesse em
+        <select name="interesse">
+          <option>Musculação</option>
+          <option>Hyrox</option>
+          <option>Clube da Luta (Jiu-Jitsu / Muay Thai)</option>
+          <option>Pilates</option>
+          <option>Atendimento nutricional</option>
+          <option>Massagem</option>
+        </select>
+      </label>
+      <button type="submit" class="btn btn--verde btn--bloco">Enviar pelo WhatsApp</button>
+    </form>
+  </div>
+  <div class="container mapa reveal" data-anim="up">
+    <iframe title="Mapa: Corpo &amp; Mente Wellness Club" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      src="https://maps.google.com/maps?q=Rua%20Manuel%20Gaya%2C%20806%20-%20Vila%20Nova%20Mazzei%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2002313-000&z=16&output=embed"></iframe>
+  </div>
+</section>
+
+</main>
+
+<footer class="rodape">
+  <div class="container rodape__inner">
+    <a href="#inicio" class="logo">
+      <span class="logo__nome">CORPO <em>&amp;</em> MENTE</span>
+      <span class="logo__sub">WELLNESS CLUB</span>
+    </a>
+    <p>© <span id="ano"></span> Corpo &amp; Mente Wellness Club. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<a href="#" class="whats-flutuante" data-whats="Olá! Vim pelo site da Corpo & Mente." aria-label="Falar no WhatsApp">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6c-2 0-4-.6-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.1-1.2 2.8s1.2 3.2 1.4 3.5c.2.2 2.4 3.6 5.8 5 2.1.9 3 1 4 .8.7-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5l-.6-.4z"/></svg>
+</a>
+
+<script src="js/main.js"></script>
+</body>
 </html>
