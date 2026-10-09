@@ -278,3 +278,7 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
   .hamburguer[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 }
 .logo__nome { white-space: nowrap; }
+
+/* campos do formulário nunca passam da largura da tela */
+.contato__grid > * { min-width: 0; }
+.form input, .form select { width: 100%; min-width: 0; max-width: 100%; text-overflow: ellipsis; }
