@@ -233,6 +233,8 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
   .mod-grid, .be-grid { grid-template-columns: 1fr; }
   .hero__bg { object-position: 70% center; }
   .hero__shade { background: linear-gradient(0deg, var(--preto) 10%, rgba(11,12,11,.75) 60%, rgba(11,12,11,.55) 100%); }
+  /* celular: tira o "Wellness Club" repetido e o ícone de rolar que ficava sobre o texto */
+  .hero__content > .kicker, .hero__scroll { display: none; }
 }
 @media (max-width: 480px) {
   .numeros strong { font-size: 2.5rem; }
