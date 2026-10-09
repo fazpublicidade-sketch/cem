@@ -78,6 +78,26 @@
   const localParaIso = (v) => (v ? new Date(v).toISOString() : null);
   const vazioParaNull = (v) => (v == null || String(v).trim() === "" ? null : String(v).trim());
 
+  // Botão de olho: mostra/esconde a senha digitada
+  document.querySelectorAll(".ver-senha").forEach((botao) => {
+    botao.addEventListener("click", () => {
+      const campo = botao.previousElementSibling;
+      const mostrar = campo.type === "password";
+      campo.type = mostrar ? "text" : "password";
+      botao.setAttribute("aria-pressed", String(mostrar));
+      botao.setAttribute("aria-label", mostrar ? "Esconder senha" : "Mostrar senha");
+      campo.focus();
+    });
+  });
+  // Ao enviar, volta a esconder (o navegador não guarda a senha como texto)
+  document.querySelectorAll("#form-login, #form-senha").forEach((f) => f.addEventListener("submit", () => {
+    f.querySelectorAll(".ver-senha").forEach((b) => {
+      b.previousElementSibling.type = "password";
+      b.setAttribute("aria-pressed", "false");
+      b.setAttribute("aria-label", "Mostrar senha");
+    });
+  }));
+
   // ---------- login ----------
   const verificarAcesso = async () => {
     const { data: { session } } = await sb.auth.getSession();

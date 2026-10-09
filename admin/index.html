@@ -36,7 +36,7 @@
     <h1>Entrar no painel</h1>
     <form id="form-login" class="form">
       <label>E-mail<input type="email" name="email" required autocomplete="username"></label>
-      <label>Senha<input type="password" name="senha" required autocomplete="current-password"></label>
+      <label>Senha<span class="campo-senha"><input type="password" name="senha" required autocomplete="current-password"><button type="button" class="ver-senha" aria-label="Mostrar senha" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="risco" d="M4 4l16 16"/></svg></button></span></label>
       <button class="btn btn--verde" type="submit">Entrar</button>
       <button class="link" type="button" id="esqueci">Esqueci minha senha</button>
       <p class="msg" id="msg-login" role="status"></p>
@@ -48,7 +48,7 @@
     <h1>Criar sua senha</h1>
     <p>Escolha uma senha com pelo menos 8 caracteres para entrar no painel.</p>
     <form id="form-senha" class="form">
-      <label>Nova senha<input type="password" name="senha" required minlength="8" autocomplete="new-password"></label>
+      <label>Nova senha<span class="campo-senha"><input type="password" name="senha" required minlength="8" autocomplete="new-password"><button type="button" class="ver-senha" aria-label="Mostrar senha" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="risco" d="M4 4l16 16"/></svg></button></span></label>
       <button class="btn btn--verde" type="submit">Salvar senha</button>
       <p class="msg" id="msg-senha" role="status"></p>
     </form>

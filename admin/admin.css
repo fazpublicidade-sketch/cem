@@ -111,3 +111,11 @@ code { background: var(--grafite-2); padding: 2px 6px; border-radius: 6px; }
   .abas { border-radius: 18px; }
 }
 .item__img--logo { object-fit: contain; background: #fff; padding: 6px; }
+
+/* Campo de senha com botão de mostrar/esconder */
+.campo-senha { position: relative; display: block; }
+.campo-senha input { padding-right: 48px !important; }
+.ver-senha { position: absolute; right: 6px; top: 50%; translate: 0 -50%; width: 36px; height: 36px; border: 0; border-radius: 8px; background: none; color: var(--cinza); cursor: pointer; display: grid; place-items: center; }
+.ver-senha:hover, .ver-senha:focus-visible { color: var(--verde-vivo); background: var(--grafite-2); outline: none; }
+.ver-senha svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.ver-senha[aria-pressed="false"] .risco { display: none; }
