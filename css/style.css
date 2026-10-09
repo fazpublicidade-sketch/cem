@@ -333,7 +333,11 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
 .pub-vazio { grid-column: 1 / -1; background: var(--preto); border: 1px dashed var(--linha); border-radius: var(--raio); padding: 40px; text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; color: var(--cinza); }
 
 /* ===== Mazzei Runners ===== */
-.runners { padding: clamp(72px, 10vw, 120px) 0; background: radial-gradient(ellipse at 20% 50%, #1a2b0d 0%, var(--preto) 60%); border-block: 1px solid var(--linha); overflow-x: clip; }
+.runners { position: relative; padding: clamp(90px, 12vw, 150px) 0; border-block: 1px solid var(--linha); overflow: hidden; isolation: isolate;
+  background: var(--preto) url("../assets/img/runners-fundo.webp") center 40% / cover no-repeat; }
+.runners::before { content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(11,12,11,.15) 0%, rgba(11,12,11,.35) 38%, rgba(11,12,11,.78) 62%, rgba(11,12,11,.88) 100%),
+              linear-gradient(0deg, rgba(11,12,11,.5) 0%, transparent 25%, transparent 75%, rgba(11,12,11,.5) 100%); }
 .runners__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: center; }
 .runners__logo { background: #000; border: 1px solid var(--linha); border-radius: 28px; padding: 32px; max-width: 380px; justify-self: center; width: 100%; }
 .runners__logo img { width: 100%; height: auto; }
@@ -356,3 +360,8 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
   .runners__ctas .btn { width: 100%; }
 }
 .menu a { white-space: nowrap; }
+
+@media (max-width: 980px) {
+  .runners { background-position: 30% center; }
+  .runners::before { background: linear-gradient(180deg, rgba(11,12,11,.2) 0%, rgba(11,12,11,.7) 42%, rgba(11,12,11,.9) 100%); }
+}
