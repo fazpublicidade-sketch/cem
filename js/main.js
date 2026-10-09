@@ -111,7 +111,7 @@ const obs = new IntersectionObserver((itens) => {
 // Itens lado a lado entram em sequência (um depois do outro).
 // Também é chamado de novo quando o conteúdo do painel chega (js/conteudo.js).
 window.CM_animar = (raiz) => {
-  raiz.querySelectorAll(".mod-grid, .cards, .be-grid, .numeros, .aulas, .func-grid, .grade, .pubs").forEach((grupo) => {
+  raiz.querySelectorAll(".mod-grid, .cards, .be-grid, .numeros, .aulas, .func-grid, .grade, .pubs, .parc-grid").forEach((grupo) => {
     grupo.querySelectorAll(":scope > .reveal").forEach((el, i) => {
       el.style.setProperty("--atraso", `${Math.min(i, 6) * 120}ms`);
     });

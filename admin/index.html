@@ -45,7 +45,8 @@
 
   <!-- Nova senha (link do e-mail de recuperação) -->
   <section class="cartao cartao--login" id="tela-senha" hidden>
-    <h1>Criar nova senha</h1>
+    <h1>Criar sua senha</h1>
+    <p>Escolha uma senha com pelo menos 8 caracteres para entrar no painel.</p>
     <form id="form-senha" class="form">
       <label>Nova senha<input type="password" name="senha" required minlength="8" autocomplete="new-password"></label>
       <button class="btn btn--verde" type="submit">Salvar senha</button>
@@ -65,6 +66,7 @@
       <button class="aba ativa" data-aba="publicacoes">Eventos e promoções</button>
       <button class="aba" data-aba="coletivas">Aulas coletivas</button>
       <button class="aba" data-aba="box">Box Mazzei</button>
+      <button class="aba" data-aba="parceiros">Parceiros</button>
       <button class="aba" data-aba="funcionamento">Funcionamento</button>
     </nav>
 
@@ -135,6 +137,40 @@
         <option>Jiu-Jitsu</option><option>Hyrox</option><option>CrossMazzei</option>
       </datalist>
       <div class="lista-dias" id="lista-aulas"></div>
+    </div>
+
+    <!-- Parceiros -->
+    <div class="painel" id="painel-parceiros" hidden>
+      <div class="painel__topo">
+        <h2>Parceiros</h2>
+        <button class="btn btn--verde" id="novo-parc">+ Novo parceiro</button>
+      </div>
+      <form class="cartao form form--grid" id="form-parc" hidden>
+        <h3 id="titulo-form-parc">Novo parceiro</h3>
+        <label>Nome<input name="nome" required maxlength="80"></label>
+        <label class="col-2">Benefício para alunos (opcional)<input name="beneficio" maxlength="120" placeholder="Ex.: 10% de desconto para alunos"></label>
+        <label class="col-3">Texto sobre o parceiro<textarea name="descricao" rows="3" maxlength="800"></textarea></label>
+        <label class="col-2">Link (site, Instagram ou WhatsApp)<input type="url" name="link" placeholder="https://instagram.com/..."></label>
+        <label>Texto do link<input name="texto_botao" maxlength="30" placeholder="Ex.: Ver Instagram"></label>
+        <div class="imagem">
+          <label>Logotipo (PNG transparente de preferência, até 5 MB)<input type="file" name="logo" accept="image/png,image/jpeg,image/webp"></label>
+          <img id="previa-logo" alt="" hidden>
+          <button type="button" class="link" id="remover-logo" hidden>Remover logotipo</button>
+        </div>
+        <div class="imagem col-2">
+          <label>Foto (opcional, até 5 MB)<input type="file" name="foto" accept="image/jpeg,image/png,image/webp"></label>
+          <img id="previa-foto" alt="" hidden>
+          <button type="button" class="link" id="remover-foto" hidden>Remover foto</button>
+        </div>
+        <label class="check"><input type="checkbox" name="publicado" checked> Aparece no site</label>
+        <label>Ordem<input type="number" name="ordem" value="0"></label>
+        <div class="col-3 form__acoes">
+          <button class="btn btn--verde" type="submit">Salvar</button>
+          <button class="btn btn--linha" type="button" id="cancelar-parc">Cancelar</button>
+          <p class="msg" id="msg-parc" role="status"></p>
+        </div>
+      </form>
+      <div class="lista" id="lista-parc"></div>
     </div>
 
     <!-- Funcionamento -->

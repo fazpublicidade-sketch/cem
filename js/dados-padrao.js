@@ -31,4 +31,5 @@ window.CM_PADRAO = {
   ].map(([grade, dia, hora, atividade, observacao = null, destaque = false]) =>
     ({ grade, dia, hora, atividade, observacao, destaque })),
   publicacoes: [],
+  parceiros: [],
 };

@@ -6,5 +6,5 @@
 // ======================================================
 window.CM_CONFIG = {
   supabaseUrl: "https://ifbumbhpcjkrzdxzbglk.supabase.co",
-  supabaseAnonKey: "",
+  supabaseAnonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlmYnVtYmhwY2prcnpkeHpiZ2xrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1NjY5MTIsImV4cCI6MjEwNzE0MjkxMn0._lqp6oYwlqlMcayRgdIHoObo8wjcJsYuWahq9brYKp0",
 };

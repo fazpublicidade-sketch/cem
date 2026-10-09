@@ -64,7 +64,29 @@ create table if not exists public.publicacoes (
   criado_em timestamptz not null default now()
 );
 
+-- ---------- Parceiros ----------
+create table if not exists public.parceiros (
+  id uuid primary key default gen_random_uuid(),
+  nome text not null,
+  logo_url text,
+  foto_url text,
+  descricao text,
+  beneficio text,                   -- ex.: "10% de desconto para alunos"
+  link text,                        -- site ou Instagram
+  texto_botao text,
+  publicado boolean not null default true,
+  ordem int not null default 0,
+  criado_em timestamptz not null default now()
+);
+
 -- ---------- Segurança: visitante só lê, só admin altera ----------
+alter table public.parceiros     enable row level security;
+drop policy if exists "publico le parceiros" on public.parceiros;
+create policy "publico le parceiros" on public.parceiros for select using (publicado or public.eh_admin());
+drop policy if exists "admin altera parceiros" on public.parceiros;
+create policy "admin altera parceiros" on public.parceiros for all
+  using (public.eh_admin()) with check (public.eh_admin());
+
 alter table public.admins        enable row level security;
 alter table public.funcionamento enable row level security;
 alter table public.grade_aulas   enable row level security;
@@ -171,3 +193,7 @@ select * from (values
   ('box', 6, '10:00', 'CrossMazzei', null, false)
 ) v(grade, dia, hora, atividade, observacao, destaque)
 where not exists (select 1 from public.grade_aulas);
+
+-- ---------- Quem acessa o painel ----------
+insert into public.admins (email) values ('corpoemente24horas@gmail.com'), ('faz.publicidade@gmail.com')
+on conflict (email) do nothing;

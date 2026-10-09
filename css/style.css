@@ -327,7 +327,7 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
 .pub__tipo--evento { background: rgba(139,232,46,.14); color: var(--verde-vivo); }
 .pub__tipo--promocao { background: var(--verde-vivo); color: var(--preto); }
 .pub h3 { font-size: 1.35rem; }
-.pub__quando { font-weight: 700; color: var(--verde-vivo); font-size: .9rem; text-transform: capitalize; }
+.pub__quando { font-weight: 700; color: var(--verde-vivo); font-size: .9rem; }
 .pub__desc { color: var(--cinza); white-space: pre-line; }
 .pub__validade { font-size: .8rem; color: var(--cinza); }
 .pub-vazio { grid-column: 1 / -1; background: var(--preto); border: 1px dashed var(--linha); border-radius: var(--raio); padding: 40px; text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; color: var(--cinza); }
@@ -339,7 +339,7 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
   background: linear-gradient(90deg, rgba(11,12,11,.15) 0%, rgba(11,12,11,.35) 38%, rgba(11,12,11,.78) 62%, rgba(11,12,11,.88) 100%),
               linear-gradient(0deg, rgba(11,12,11,.5) 0%, transparent 25%, transparent 75%, rgba(11,12,11,.5) 100%); }
 .runners__grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 64px; align-items: center; }
-.runners__logo { background: #000; border: 1px solid var(--linha); border-radius: 28px; padding: 32px; max-width: 380px; justify-self: center; width: 100%; }
+.runners__logo { max-width: 400px; justify-self: center; width: 100%; filter: drop-shadow(0 20px 40px rgba(0,0,0,.6)); }
 .runners__logo img { width: 100%; height: auto; }
 .runners__texto h2 { margin-bottom: 18px; }
 .runners__lead { color: #d3d5cf; font-size: 1.05rem; max-width: 560px; }
@@ -365,3 +365,25 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
   .runners { background-position: 30% center; }
   .runners::before { background: linear-gradient(180deg, rgba(11,12,11,.2) 0%, rgba(11,12,11,.7) 42%, rgba(11,12,11,.9) 100%); }
 }
+
+/* ===== Parceiros ===== */
+.parc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.parc-grid[hidden] { display: none; }
+.parc { background: var(--grafite); border: 1px solid var(--linha); border-radius: var(--raio); overflow: hidden; display: flex; flex-direction: column; }
+.parc.visivel:hover { border-color: var(--verde); }
+.parc__foto { aspect-ratio: 16/10; background: var(--grafite-2); }
+.parc__foto img { width: 100%; height: 100%; object-fit: cover; }
+.parc__corpo { padding: 24px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.parc__corpo .link { margin-top: auto; }
+.parc__topo { display: flex; align-items: center; gap: 14px; }
+.parc__logo { width: 64px; height: 64px; flex-shrink: 0; border-radius: 14px; background: #fff; display: grid; place-items: center; padding: 8px; }
+.parc--foto .parc__logo { margin-top: -56px; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+.parc__logo img { max-width: 100%; max-height: 100%; object-fit: contain; }
+.parc h3 { font-size: 1.2rem; }
+.parc__beneficio { align-self: flex-start; background: rgba(139,232,46,.14); color: var(--verde-vivo); font-weight: 700; font-size: .82rem; padding: 6px 12px; border-radius: 10px; }
+.parc__desc { color: var(--cinza); font-size: .94rem; white-space: pre-line; }
+.parc-cta { margin-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; background: var(--grafite); border: 1px dashed var(--linha); border-radius: var(--raio); padding: 24px 28px; }
+.parc-cta p { color: var(--cinza); }
+@media (max-width: 980px) { .parc-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .parc-grid { grid-template-columns: 1fr; } .parc-cta .btn { width: 100%; } }
+.pubs, .parc-grid { align-items: start; }

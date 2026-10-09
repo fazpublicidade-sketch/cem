@@ -19,8 +19,8 @@
     mostrarTela("tela-config");
     return;
   }
-  // Link de "esqueci minha senha": lê antes de o Supabase limpar o endereço
-  const emRecuperacao = /type=recovery/.test(location.hash);
+  // Link de "esqueci minha senha" ou de convite: lê antes de o Supabase limpar o endereço
+  const emRecuperacao = /type=(recovery|invite)/.test(location.hash);
   const sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
 
   // ---------- utilidades ----------
@@ -138,7 +138,9 @@
     $("#painel-publicacoes").hidden = aba !== "publicacoes";
     $("#painel-grade").hidden = !["coletivas", "box"].includes(aba);
     $("#painel-funcionamento").hidden = aba !== "funcionamento";
+    $("#painel-parceiros").hidden = aba !== "parceiros";
     if (aba === "publicacoes") carregarPublicacoes();
+    else if (aba === "parceiros") carregarParceiros();
     else if (aba === "funcionamento") carregarFuncionamento();
     else {
       $("#titulo-grade").textContent = aba === "box" ? "Box Mazzei · Hyrox e CrossMazzei" : "Aulas coletivas e lutas";
@@ -371,7 +373,7 @@
           el("time", { text: hora(a.hora) }),
           el("span", {}, a.atividade + (a.destaque ? " ★" : ""), a.observacao ? el("small", { text: a.observacao }) : null, !a.ativo ? el("small", { text: "Oculta no site" }) : null),
           el("button", { class: "btn btn--linha btn--p", text: "Editar", onclick: () => abrirFormAula(a) }),
-          el("button", { class: "btn btn--perigo btn--p", text: "×", title: "Excluir", "aria-label": `Excluir ${a.atividade} de ${DIAS[dia]} às ${hora(a.hora)}`, onclick: async (ev) => {
+          el("button", { class: "btn btn--perigo btn--p", text: "Excluir", "aria-label": `Excluir ${a.atividade} de ${DIAS[dia]} às ${hora(a.hora)}`, onclick: async (ev) => {
             if (!confirm(`Excluir ${a.atividade} de ${DIAS[dia]} às ${hora(a.hora)}?`)) return;
             await ocupado(ev.currentTarget, async () => {
               const { error } = await sb.from("grade_aulas").delete().eq("id", a.id);
@@ -383,6 +385,144 @@
         ))
       ));
     }
+  };
+
+  // ======================================================
+  // PARCEIROS
+  // ======================================================
+  const formParc = $("#form-parc");
+  let parcEditando = null;
+  const remover = { logo: false, foto: false };
+
+  // Envia um arquivo de imagem e devolve a URL pública
+  const enviarImagem = async (arq, pasta) => {
+    const ext = (arq.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const caminho = `${pasta}/${crypto.randomUUID()}.${ext}`;
+    const { error } = await sb.storage.from(BUCKET).upload(caminho, arq, { contentType: arq.type, cacheControl: "31536000" });
+    if (error) throw error;
+    return sb.storage.from(BUCKET).getPublicUrl(caminho).data.publicUrl;
+  };
+
+  const ligarCampoImagem = (campo) => {
+    const input = formParc[campo];
+    const previa = $(`#previa-${campo}`);
+    const botao = $(`#remover-${campo}`);
+    input.addEventListener("change", () => {
+      const arq = input.files[0];
+      if (!arq) return;
+      if (arq.size > 5 * 1024 * 1024) {
+        input.value = "";
+        return msg("#msg-parc", "Imagem maior que 5 MB. Reduza o tamanho e tente de novo.", "erro");
+      }
+      previa.src = URL.createObjectURL(arq);
+      previa.hidden = false;
+      botao.hidden = false;
+      remover[campo] = false;
+    });
+    botao.addEventListener("click", () => {
+      remover[campo] = true;
+      input.value = "";
+      previa.hidden = true;
+      botao.hidden = true;
+    });
+  };
+  ligarCampoImagem("logo");
+  ligarCampoImagem("foto");
+
+  const mostrarPrevia = (campo, url) => {
+    const previa = $(`#previa-${campo}`);
+    previa.hidden = !url;
+    if (url) previa.src = url;
+    $(`#remover-${campo}`).hidden = !url;
+  };
+
+  const abrirFormParc = (p = null) => {
+    parcEditando = p;
+    remover.logo = remover.foto = false;
+    formParc.reset();
+    $("#titulo-form-parc").textContent = p ? "Editar parceiro" : "Novo parceiro";
+    if (p) {
+      for (const campo of ["nome", "beneficio", "descricao", "link", "texto_botao", "ordem"]) formParc[campo].value = p[campo] ?? "";
+      formParc.publicado.checked = p.publicado;
+    }
+    mostrarPrevia("logo", p?.logo_url);
+    mostrarPrevia("foto", p?.foto_url);
+    msg("#msg-parc", "");
+    formParc.hidden = false;
+    formParc.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const fecharFormParc = () => { formParc.hidden = true; parcEditando = null; };
+  $("#novo-parc").addEventListener("click", () => abrirFormParc());
+  $("#cancelar-parc").addEventListener("click", fecharFormParc);
+
+  formParc.addEventListener("submit", (e) => {
+    e.preventDefault();
+    ocupado(formParc.querySelector("[type=submit]"), async () => {
+      msg("#msg-parc", "Salvando…");
+      const registro = {
+        nome: formParc.nome.value.trim(),
+        beneficio: vazioParaNull(formParc.beneficio.value),
+        descricao: vazioParaNull(formParc.descricao.value),
+        link: vazioParaNull(formParc.link.value),
+        texto_botao: vazioParaNull(formParc.texto_botao.value),
+        publicado: formParc.publicado.checked,
+        ordem: Number(formParc.ordem.value) || 0,
+      };
+      const antigas = [];
+      try {
+        for (const campo of ["logo", "foto"]) {
+          const coluna = `${campo}_url`;
+          const arq = formParc[campo].files[0];
+          if (arq) registro[coluna] = await enviarImagem(arq, "parceiros");
+          else if (remover[campo]) registro[coluna] = null;
+          if ((arq || remover[campo]) && parcEditando?.[coluna]) antigas.push(parcEditando[coluna]);
+        }
+      } catch (erro) {
+        return msg("#msg-parc", "Erro ao enviar a imagem: " + traduzErro(erro), "erro");
+      }
+      const { error } = parcEditando
+        ? await sb.from("parceiros").update(registro).eq("id", parcEditando.id)
+        : await sb.from("parceiros").insert(registro);
+      if (error) return msg("#msg-parc", traduzErro(error), "erro");
+      for (const url of antigas) await apagarArquivo(url);
+      fecharFormParc();
+      aviso("Parceiro salvo! Já está no site.");
+      carregarParceiros();
+    });
+  });
+
+  const carregarParceiros = async () => {
+    const lista = $("#lista-parc");
+    const { data, error } = await sb.from("parceiros").select("*").order("ordem").order("nome");
+    lista.replaceChildren();
+    if (error) return lista.append(el("p", { class: "vazio", text: traduzErro(error) }));
+    if (!data.length) return lista.append(el("p", { class: "vazio", text: "Nenhum parceiro ainda. Clique em “+ Novo parceiro”." }));
+    data.forEach((p) => {
+      lista.append(el("div", { class: "item" },
+        p.logo_url || p.foto_url ? el("img", { class: "item__img item__img--logo", src: p.logo_url || p.foto_url, alt: "" }) : el("div", { class: "item__img" }),
+        el("div", { class: "item__info" },
+          el("strong", { text: p.nome }),
+          p.beneficio ? el("small", { text: p.beneficio }) : null,
+          el("div", { class: "chips" },
+            p.publicado ? el("span", { class: "chip chip--verde", text: "No site" }) : el("span", { class: "chip", text: "Oculto" })
+          )
+        ),
+        el("div", { class: "item__acoes" },
+          el("button", { class: "btn btn--linha btn--p", text: "Editar", onclick: () => abrirFormParc(p) }),
+          el("button", { class: "btn btn--perigo btn--p", text: "Excluir", onclick: async (ev) => {
+            if (!confirm(`Excluir o parceiro “${p.nome}”? Isso não pode ser desfeito.`)) return;
+            await ocupado(ev.currentTarget, async () => {
+              const { error } = await sb.from("parceiros").delete().eq("id", p.id);
+              if (error) return aviso(traduzErro(error), true);
+              await apagarArquivo(p.logo_url);
+              await apagarArquivo(p.foto_url);
+              aviso("Parceiro excluído.");
+              carregarParceiros();
+            });
+          } })
+        )
+      ));
+    });
   };
 
   // ======================================================

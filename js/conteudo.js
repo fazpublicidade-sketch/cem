@@ -31,12 +31,13 @@
   const carregar = async () => {
     if (!temBanco) return window.CM_PADRAO;
     try {
-      const [funcionamento, grade_aulas, publicacoes] = await Promise.all([
+      const [funcionamento, grade_aulas, publicacoes, parceiros] = await Promise.all([
         ler("funcionamento", "select=*&order=ordem"),
         ler("grade_aulas", "select=*&ativo=eq.true&order=dia,hora"),
         ler("publicacoes", "select=*&order=destaque.desc,ordem,data_evento.asc.nullslast,criado_em.desc"),
+        ler("parceiros", "select=*&publicado=eq.true&order=ordem,nome").catch(() => []),
       ]);
-      return { funcionamento, grade_aulas, publicacoes };
+      return { funcionamento, grade_aulas, publicacoes, parceiros };
     } catch (erro) {
       console.warn("Banco indisponível, usando horários padrão.", erro);
       return window.CM_PADRAO;
@@ -110,7 +111,8 @@
     const d = new Date(iso);
     const data = d.toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "short", timeZone: "America/Sao_Paulo" });
     const h = d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" });
-    return `${data} · ${h.replace(":00", "h").replace(":", "h")}`;
+    const dataBonita = data.charAt(0).toUpperCase() + data.slice(1);
+    return `${dataBonita} · ${h.replace(":00", "h").replace(":", "h")}`;
   };
 
   const renderPublicacoes = (itens) => {
@@ -152,7 +154,37 @@
     });
   };
 
+  // ---------- Parceiros ----------
+  const urlSegura = (u) => (u && /^https:\/\//i.test(u) ? u : null);
+
+  const renderParceiros = (itens) => {
+    const alvo = document.getElementById("lista-parceiros");
+    if (!alvo) return;
+    alvo.replaceChildren();
+    alvo.hidden = !itens.length;
+    itens.forEach((p) => {
+      const link = p.link && /^https?:\/\//i.test(p.link) ? p.link : null;
+      const foto = urlSegura(p.foto_url);
+      const logo = urlSegura(p.logo_url);
+      alvo.append(
+        el("article", { class: `parc reveal${foto ? " parc--foto" : ""}`, "data-anim": "up" },
+          foto ? el("div", { class: "parc__foto" }, el("img", { src: foto, alt: "", loading: "lazy" })) : null,
+          el("div", { class: "parc__corpo" },
+            el("div", { class: "parc__topo" },
+              logo ? el("div", { class: "parc__logo" }, el("img", { src: logo, alt: `Logo ${p.nome}`, loading: "lazy" })) : null,
+              el("h3", { text: p.nome })
+            ),
+            p.beneficio ? el("p", { class: "parc__beneficio", text: p.beneficio }) : null,
+            p.descricao ? el("p", { class: "parc__desc", text: p.descricao }) : null,
+            link ? el("a", { class: "link", href: link, target: "_blank", rel: "noopener", text: (p.texto_botao || "Conhecer") + " →" }) : null
+          )
+        )
+      );
+    });
+  };
+
   carregar().then((dados) => {
+    renderParceiros(dados.parceiros || []);
     renderFuncionamento(dados.funcionamento || []);
     renderGrade("coletivas", dados.grade_aulas || []);
     renderGrade("box", dados.grade_aulas || []);
