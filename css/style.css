@@ -247,3 +247,34 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); }
 /* mantém o efeito de passar o mouse depois da animação de entrada */
 .mod.visivel:hover { transform: translateY(-6px); transition-delay: 0ms; transition-duration: .35s; }
 .secao, .chamada { overflow-x: clip; }
+
+/* ===== Aulas coletivas ===== */
+.coletivas { margin-top: 72px; }
+.coletivas__topo { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 28px; }
+.coletivas__topo h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); text-transform: uppercase; }
+.coletivas__topo p { color: var(--cinza); margin-top: 6px; }
+.coletivas__selo { background: rgba(139,232,46,.14); color: var(--verde-vivo); border: 1px solid rgba(139,232,46,.35); font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 10px 18px; border-radius: 999px; }
+.aulas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.aula { background: var(--preto); border: 1px solid var(--linha); border-radius: var(--raio); padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; }
+.aula.visivel:hover { border-color: var(--verde); transform: translateY(-6px); transition-delay: 0ms; transition-duration: .35s; }
+.aula svg { width: 46px; fill: none; stroke: var(--verde-vivo); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.aula h4 { font-size: 1.25rem; font-weight: 800; text-transform: uppercase; letter-spacing: -.01em; }
+.aula p { color: var(--cinza); font-size: .92rem; }
+.coletivas__cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
+@media (max-width: 980px) { .aulas { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) {
+  .aulas { grid-template-columns: 1fr; }
+  .coletivas__cta .btn { width: 100%; }
+}
+
+/* Tablet: menu vira hambúrguer antes de quebrar em duas linhas */
+@media (max-width: 1080px) {
+  .hamburguer { display: block; z-index: 2; }
+  .menu { position: fixed; inset: 0; background: rgba(11,12,11,.98); flex-direction: column; justify-content: center; gap: 28px; opacity: 0; pointer-events: none; transition: .3s; }
+  .menu a:not(.btn) { font-size: 1.2rem; color: var(--branco); }
+  .menu.aberto { opacity: 1; pointer-events: auto; }
+  .hamburguer[aria-expanded="true"] span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .hamburguer[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .hamburguer[aria-expanded="true"] span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+}
+.logo__nome { white-space: nowrap; }

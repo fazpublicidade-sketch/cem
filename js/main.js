@@ -83,7 +83,7 @@ document.getElementById('form-contato').addEventListener('submit', (e) => {
 
 // ===== Animações de rolagem =====
 // Itens lado a lado entram em sequência (um depois do outro)
-document.querySelectorAll(".mod-grid, .cards, .be-grid, .numeros").forEach((grupo) => {
+document.querySelectorAll(".mod-grid, .cards, .be-grid, .numeros, .aulas").forEach((grupo) => {
   grupo.querySelectorAll(":scope > .reveal").forEach((el, i) => {
     el.style.setProperty("--atraso", `${i * 150}ms`);
   });
