@@ -159,8 +159,10 @@
     $("#painel-grade").hidden = !["coletivas", "box"].includes(aba);
     $("#painel-funcionamento").hidden = aba !== "funcionamento";
     $("#painel-parceiros").hidden = aba !== "parceiros";
+    $("#painel-planos").hidden = aba !== "planos";
     if (aba === "publicacoes") carregarPublicacoes();
     else if (aba === "parceiros") carregarParceiros();
+    else if (aba === "planos") carregarPlanos();
     else if (aba === "funcionamento") carregarFuncionamento();
     else {
       $("#titulo-grade").textContent = aba === "box" ? "Box Mazzei · Hyrox e CrossMazzei" : "Aulas coletivas e lutas";
@@ -405,6 +407,164 @@
         ))
       ));
     }
+  };
+
+  // ======================================================
+  // PLANOS (pacotes)
+  // ======================================================
+  const formPlano = $("#form-plano");
+  let planoEditando = null;
+
+  // "1.318,80" / "159,90" / "159.90" → 159.9  ·  vazio → null  ·  inválido → NaN
+  const lerValor = (texto) => {
+    const t = String(texto || "").trim().replace(/^R\$\s*/i, "");
+    if (!t) return null;
+    const normal = t.includes(",") ? t.replace(/\./g, "").replace(",", ".")
+      : /^\d{1,3}(\.\d{3})+$/.test(t) ? t.replace(/\./g, "") // "1.000" = mil
+      : t;
+    return /^\d+(\.\d{1,2})?$/.test(normal) ? Number(normal) : NaN;
+  };
+  const mostrarValor = (n) => (n == null ? "" : Number(n).toFixed(2).replace(".", ","));
+
+  const linhaOpcao = (o = {}) => {
+    const linha = el("div", { class: "opcao-linha" },
+      el("input", { name: "op_titulo", value: o.titulo || "", placeholder: "Ex.: Plano anual", "aria-label": "Nome da opção", maxlength: "40" }),
+      el("input", { name: "op_detalhe", value: o.detalhe || "", placeholder: "Ex.: 12x no cartão · total R$ 2.158,80", "aria-label": "Detalhe da opção", maxlength: "90" }),
+      el("input", { name: "op_valor", value: o.valor || "", placeholder: "Ex.: R$ 179,90", "aria-label": "Valor da opção", maxlength: "20" }),
+      el("button", { type: "button", class: "btn btn--perigo btn--p", text: "Excluir", onclick: () => linha.remove() })
+    );
+    return linha;
+  };
+  $("#add-opcao").addEventListener("click", () => {
+    const linha = linhaOpcao();
+    $("#lista-opcoes").append(linha);
+    linha.querySelector("input").focus();
+  });
+
+  const abrirFormPlano = (p = null, { copia = false } = {}) => {
+    planoEditando = copia ? null : p;
+    formPlano.reset();
+    $("#titulo-form-plano").textContent = copia ? "Novo plano (cópia)" : p ? `Editar plano ${p.nome}` : "Novo plano";
+    $("#lista-opcoes").replaceChildren();
+    if (p) {
+      for (const campo of ["categoria", "nome", "selo_topo", "frequencia", "preco_prefixo", "preco_sufixo", "condicao", "observacao", "pagamento", "texto_botao", "mensagem_whatsapp", "ordem"]) {
+        formPlano[campo].value = p[campo] ?? "";
+      }
+      if (copia) formPlano.nome.value = `${p.nome} (cópia)`;
+      formPlano.preco.value = mostrarValor(p.preco);
+      formPlano.itens.value = (p.itens || []).join("\n");
+      formPlano.destaque.checked = p.destaque;
+      formPlano.condicao_destaque.checked = p.condicao_destaque;
+      formPlano.publicado.checked = copia ? false : p.publicado;
+      (p.opcoes || []).forEach((o) => $("#lista-opcoes").append(linhaOpcao(o)));
+    }
+    msg("#msg-plano", copia ? "A cópia começa oculta no site. Ajuste e marque “Aparece no site”." : "");
+    formPlano.hidden = false;
+    formPlano.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const fecharFormPlano = () => { formPlano.hidden = true; planoEditando = null; };
+  $("#novo-plano").addEventListener("click", () => abrirFormPlano());
+  $("#cancelar-plano").addEventListener("click", fecharFormPlano);
+
+  formPlano.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const preco = lerValor(formPlano.preco.value);
+    if (Number.isNaN(preco)) return msg("#msg-plano", "Valor inválido. Use só números, ex.: 159,90", "erro");
+    const opcoes = [...$("#lista-opcoes").querySelectorAll(".opcao-linha")].map((l) => ({
+      titulo: l.querySelector("[name=op_titulo]").value.trim(),
+      detalhe: l.querySelector("[name=op_detalhe]").value.trim(),
+      valor: l.querySelector("[name=op_valor]").value.trim(),
+    })).filter((o) => o.titulo || o.detalhe || o.valor);
+    if (preco == null && !opcoes.length) return msg("#msg-plano", "Informe o valor do plano ou pelo menos uma opção de pagamento.", "erro");
+
+    ocupado(formPlano.querySelector("[type=submit]"), async () => {
+      msg("#msg-plano", "Salvando…");
+      const registro = {
+        categoria: formPlano.categoria.value.trim(),
+        nome: formPlano.nome.value.trim(),
+        selo_topo: vazioParaNull(formPlano.selo_topo.value),
+        frequencia: vazioParaNull(formPlano.frequencia.value),
+        destaque: formPlano.destaque.checked,
+        itens: formPlano.itens.value.split("\n").map((s) => s.trim()).filter(Boolean),
+        preco_prefixo: vazioParaNull(formPlano.preco_prefixo.value),
+        preco,
+        preco_sufixo: vazioParaNull(formPlano.preco_sufixo.value),
+        opcoes,
+        condicao: vazioParaNull(formPlano.condicao.value),
+        condicao_destaque: formPlano.condicao_destaque.checked,
+        observacao: vazioParaNull(formPlano.observacao.value),
+        pagamento: vazioParaNull(formPlano.pagamento.value),
+        texto_botao: vazioParaNull(formPlano.texto_botao.value),
+        mensagem_whatsapp: vazioParaNull(formPlano.mensagem_whatsapp.value),
+        publicado: formPlano.publicado.checked,
+        ordem: Number(formPlano.ordem.value) || 0,
+      };
+      const { error } = planoEditando
+        ? await sb.from("planos").update(registro).eq("id", planoEditando.id)
+        : await sb.from("planos").insert(registro);
+      if (error) return msg("#msg-plano", traduzErro(error), "erro");
+      fecharFormPlano();
+      aviso("Plano salvo! Já está no site.");
+      carregarPlanos();
+    });
+  });
+
+  const resumoPreco = (p) => {
+    if (p.preco != null) return `${p.preco_prefixo ? p.preco_prefixo + " " : ""}R$ ${mostrarValor(p.preco)}${p.preco_sufixo || ""}`;
+    const valores = (p.opcoes || []).map((o) => o.valor).filter(Boolean);
+    return valores.length ? valores.join(" · ") : "Sem valor";
+  };
+
+  const carregarPlanos = async () => {
+    const lista = $("#lista-planos");
+    const { data, error } = await sb.from("planos").select("*").order("ordem").order("nome");
+    lista.replaceChildren();
+    if (error) {
+      const semTabela = /planos/.test(error.message || "") && /(schema cache|does not exist)/i.test(error.message || "");
+      return lista.append(el("p", { class: "vazio", text: semTabela
+        ? "A tabela de planos ainda não foi criada no banco. Rode o arquivo supabase/02_planos.sql no Supabase (SQL Editor)."
+        : traduzErro(error) }));
+    }
+    if (!data.length) return lista.append(el("p", { class: "vazio", text: "Nenhum plano cadastrado. Clique em “+ Novo plano”." }));
+
+    const categorias = [];
+    data.forEach((p) => { if (!categorias.includes(p.categoria)) categorias.push(p.categoria); });
+    categorias.forEach((cat) => {
+      lista.append(el("h3", { class: "cat-titulo", text: cat }));
+      const grupo = el("div", { class: "lista" });
+      data.filter((p) => p.categoria === cat).forEach((p) => {
+        grupo.append(el("div", { class: "item" },
+          el("div", { class: "item__info" },
+            el("strong", { text: p.nome + (p.frequencia ? ` · ${p.frequencia}` : "") }),
+            el("small", { text: resumoPreco(p) }),
+            el("div", { class: "chips" },
+              p.publicado ? el("span", { class: "chip chip--verde", text: "No site" }) : el("span", { class: "chip", text: "Oculto" }),
+              p.destaque ? el("span", { class: "chip chip--verde", text: "Destaque" }) : null,
+              p.selo_topo ? el("span", { class: "chip", text: p.selo_topo }) : null
+            )
+          ),
+          el("div", { class: "item__acoes" },
+            el("button", { class: "btn btn--linha btn--p", text: "Editar", onclick: () => abrirFormPlano(p) }),
+            el("button", { class: "btn btn--linha btn--p", text: "Duplicar", onclick: () => abrirFormPlano(p, { copia: true }) }),
+            el("button", { class: "btn btn--linha btn--p", text: p.publicado ? "Ocultar" : "Mostrar", onclick: (ev) => ocupado(ev.currentTarget, async () => {
+              const { error } = await sb.from("planos").update({ publicado: !p.publicado }).eq("id", p.id);
+              if (error) return aviso(traduzErro(error), true);
+              carregarPlanos();
+            }) }),
+            el("button", { class: "btn btn--perigo btn--p", text: "Excluir", onclick: (ev) => {
+              if (!confirm(`Excluir o plano “${p.nome}” (${p.categoria})? Isso não pode ser desfeito.`)) return;
+              ocupado(ev.currentTarget, async () => {
+                const { error } = await sb.from("planos").delete().eq("id", p.id);
+                if (error) return aviso(traduzErro(error), true);
+                aviso("Plano excluído.");
+                carregarPlanos();
+              });
+            } })
+          )
+        ));
+      });
+      lista.append(grupo);
+    });
   };
 
   // ======================================================

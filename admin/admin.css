@@ -119,3 +119,14 @@ code { background: var(--grafite-2); padding: 2px 6px; border-radius: 6px; }
 .ver-senha:hover, .ver-senha:focus-visible { color: var(--verde-vivo); background: var(--grafite-2); outline: none; }
 .ver-senha svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .ver-senha[aria-pressed="false"] .risco { display: none; }
+
+/* Planos */
+.grupo { border: 1px solid var(--linha); border-radius: 12px; padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 12px; }
+.grupo legend { padding: 0 6px; font-size: .74rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--cinza); }
+.form--sub { margin: 0; }
+.opcoes-edit { display: flex; flex-direction: column; gap: 10px; }
+.opcao-linha { display: grid; grid-template-columns: 1fr 1.6fr 140px auto; gap: 8px; align-items: center; }
+.opcao-linha input { background: var(--preto); border: 1px solid var(--linha); border-radius: 10px; padding: 10px 12px; color: var(--branco); font: 500 .92rem 'Montserrat', sans-serif; width: 100%; min-width: 0; }
+.opcao-linha input:focus { border-color: var(--verde-vivo); outline: none; }
+.cat-titulo { margin: 22px 0 10px; font-size: .78rem; letter-spacing: .25em; text-transform: uppercase; color: var(--verde); }
+@media (max-width: 760px) { .opcao-linha { grid-template-columns: 1fr 1fr; } }

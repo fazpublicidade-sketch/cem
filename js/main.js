@@ -58,25 +58,27 @@ hamburguer.addEventListener('click', () => {
 });
 menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', fecharMenu));
 
-// Abas de planos
-const abas = document.querySelectorAll('.aba');
+// Abas de planos (criadas por js/conteudo.js; uma por categoria)
 const mostrarAba = (alvo) => {
-  abas.forEach((aba) => {
+  document.querySelectorAll(".aba[data-alvo]").forEach((aba) => {
     const ativa = aba.dataset.alvo === alvo;
-    aba.classList.toggle('ativa', ativa);
-    aba.setAttribute('aria-selected', String(ativa));
+    aba.classList.toggle("ativa", ativa);
+    aba.setAttribute("aria-selected", String(ativa));
   });
-  document.querySelectorAll('.painel').forEach((p) => {
-    const ativo = p.id === `painel-${alvo}`;
-    p.classList.toggle('ativo', ativo);
+  document.querySelectorAll(".painel[data-categoria]").forEach((p) => {
+    const ativo = p.dataset.categoria === alvo;
+    p.classList.toggle("ativo", ativo);
     p.hidden = !ativo;
   });
 };
-abas.forEach((aba) => aba.addEventListener('click', () => mostrarAba(aba.dataset.alvo)));
-// Links "Ver planos" das modalidades abrem a aba certa
-document.querySelectorAll('[data-aba]').forEach((el) =>
-  el.addEventListener('click', () => mostrarAba(el.dataset.aba))
-);
+window.CM_mostrarAba = mostrarAba;
+document.addEventListener("click", (e) => {
+  const aba = e.target.closest(".aba[data-alvo]");
+  if (aba) mostrarAba(aba.dataset.alvo);
+  // Links "Ver planos" das modalidades abrem a aba certa
+  const link = e.target.closest("[data-aba]");
+  if (link) mostrarAba(link.dataset.aba);
+});
 
 // Abas das grades de horários
 const mostrarGrade = (alvo) => {

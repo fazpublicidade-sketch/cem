@@ -64,6 +64,7 @@
   <section id="tela-painel" hidden>
     <nav class="abas" role="tablist">
       <button class="aba ativa" data-aba="publicacoes">Eventos e promoções</button>
+      <button class="aba" data-aba="planos">Planos</button>
       <button class="aba" data-aba="coletivas">Aulas coletivas</button>
       <button class="aba" data-aba="box">Box Mazzei</button>
       <button class="aba" data-aba="parceiros">Parceiros</button>
@@ -137,6 +138,54 @@
         <option>Jiu-Jitsu</option><option>Hyrox</option><option>CrossMazzei</option>
       </datalist>
       <div class="lista-dias" id="lista-aulas"></div>
+    </div>
+
+    <!-- Planos -->
+    <div class="painel" id="painel-planos" hidden>
+      <div class="painel__topo">
+        <h2>Planos</h2>
+        <button class="btn btn--verde" id="novo-plano">+ Novo plano</button>
+      </div>
+      <form class="cartao form form--grid" id="form-plano" hidden>
+        <h3 id="titulo-form-plano">Novo plano</h3>
+        <label>Categoria (aba no site)<input name="categoria" required maxlength="40" list="sugestoes-categoria" placeholder="Ex.: Musculação"></label>
+        <label>Nome do plano<input name="nome" required maxlength="40" placeholder="Ex.: Ouro"></label>
+        <label>Etiqueta no topo (opcional)<input name="selo_topo" maxlength="30" placeholder="Ex.: Mais escolhido"></label>
+        <label>Frequência (opcional)<input name="frequencia" maxlength="40" placeholder="Ex.: 2x por semana"></label>
+        <label class="check"><input type="checkbox" name="destaque"> Destacar (borda e botão verdes)</label>
+        <label class="check"><input type="checkbox" name="publicado" checked> Aparece no site</label>
+        <label class="col-3">O que está incluso (um item por linha · use **texto** para negrito)<textarea name="itens" rows="4" placeholder="Sala de musculação **7 dias** por semana&#10;Acesso livre à área de cardio"></textarea></label>
+
+        <fieldset class="col-3 grupo">
+          <legend>Preço em destaque (deixe o valor vazio se usar só as opções abaixo)</legend>
+          <div class="form--grid form--sub">
+            <label>Antes do preço<input name="preco_prefixo" maxlength="20" placeholder="Ex.: 12x de"></label>
+            <label>Valor (R$)<input name="preco" inputmode="decimal" maxlength="12" placeholder="Ex.: 159,90"></label>
+            <label>Depois do preço<input name="preco_sufixo" maxlength="20" placeholder="Ex.: /mês"></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="col-3 grupo">
+          <legend>Opções de pagamento (opcional · ex.: anual, com fidelidade, sem fidelidade)</legend>
+          <div id="lista-opcoes" class="opcoes-edit"></div>
+          <button type="button" class="link" id="add-opcao">+ Adicionar opção</button>
+        </fieldset>
+
+        <label class="col-2">Faixa abaixo do preço (opcional)<input name="condicao" maxlength="60" placeholder="Ex.: Fidelidade de 12 meses · recorrente"></label>
+        <label class="check"><input type="checkbox" name="condicao_destaque"> Faixa em verde</label>
+        <label class="col-3">Observação (opcional · use **texto** para negrito)<input name="observacao" maxlength="160" placeholder="Ex.: Taxa de adesão para novas matrículas: **R$ 29,90**"></label>
+        <label class="col-3">Formas de pagamento (opcional)<input name="pagamento" maxlength="100" placeholder="Ex.: Pix · Cartão de débito · Cartão de crédito"></label>
+        <label>Texto do botão<input name="texto_botao" maxlength="30" placeholder="Ex.: Quero o Ouro"></label>
+        <label class="col-2">Mensagem do WhatsApp do botão<input name="mensagem_whatsapp" maxlength="200" placeholder="Ex.: Olá! Tenho interesse no Plano Ouro."></label>
+        <label>Ordem<input type="number" name="ordem" value="0"></label>
+        <div class="col-3 form__acoes">
+          <button class="btn btn--verde" type="submit">Salvar</button>
+          <button class="btn btn--linha" type="button" id="cancelar-plano">Cancelar</button>
+          <p class="msg" id="msg-plano" role="status"></p>
+        </div>
+      </form>
+      <datalist id="sugestoes-categoria"><option>Musculação</option><option>Pilates</option></datalist>
+      <div id="lista-planos"></div>
     </div>
 
     <!-- Parceiros -->
